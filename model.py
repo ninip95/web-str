@@ -33,54 +33,54 @@ def run_model():
     st.write(df)
     
         
-    # 연속형 입력 데이터, 범주형 입력 데이터, 출력 데이터로 구분
-    X_num = df[['ID', 'Age','Height', 'Weight', 'BMI']]
+#     # 연속형 입력 데이터, 범주형 입력 데이터, 출력 데이터로 구분
+#     X_num = df[['ID', 'Age','Height', 'Weight', 'BMI']]
    
   
 
-    # 수치형 입력 데이터를 전처리하고 입력 데이터 통합하기
-    le= LabelEncoder()
+#     # 수치형 입력 데이터를 전처리하고 입력 데이터 통합하기
+#     le= LabelEncoder()
 
-    df['Gender'] = le.fit_transform(df['Gender'])
-    df['Label'] = le.fit_transform(df['Label'])
+#     df['Gender'] = le.fit_transform(df['Gender'])
+#     df['Label'] = le.fit_transform(df['Label'])
 
-    scaler = StandardScaler()
-    scaler.fit(X_num)
+#     scaler = StandardScaler()
+#     scaler.fit(X_num)
 
-    X = scaler.transform(X_num) 
-    y = df['Label']    
+#     X = scaler.transform(X_num) 
+#     y = df['Label']    
 
-    #학습, 테스트 데이터 분리s
-    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=1)
+#     #학습, 테스트 데이터 분리s
+#     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=1)
 
-    #Logistic Regression 모델 생성
-    model = LogisticRegression(max_iter=1000) # 학습 1000번 진행
-    model.fit(X_train, y_train)
-    model.score(X_test, y_test) 
+#     #Logistic Regression 모델 생성
+#     model = LogisticRegression(max_iter=1000) # 학습 1000번 진행
+#     model.fit(X_train, y_train)
+#     model.score(X_test, y_test) 
 
-    pred = model.predict(X_test) # X_test 데이터를 기반으로 y값 예측
-    print(classification_report(y_test, pred)) # 실제 y_test값과 예측된 y값 비교 평가
+#     pred = model.predict(X_test) # X_test 데이터를 기반으로 y값 예측
+#     print(classification_report(y_test, pred)) # 실제 y_test값과 예측된 y값 비교 평가
 
-    #XGBoost 모델 생성
-    model_xgb = XGBClassifier()
-    model_xgb.fit(X_train, y_train)
-    model_xgb.score(X_test, y_test) # 0.8
+#     #XGBoost 모델 생성
+#     model_xgb = XGBClassifier()
+#     model_xgb.fit(X_train, y_train)
+#     model_xgb.score(X_test, y_test) # 0.8
 
-    #학습한 모델을 통한 예측
-    pred = model_xgb.predict(X_test)
-    print(classification_report(y_test, pred))
+#     #학습한 모델을 통한 예측
+#     pred = model_xgb.predict(X_test)
+#     print(classification_report(y_test, pred))
 
-    #모델 만들고 내보내기
-    model_file=open('model1.pkl','wb')
-    joblib.dump(model,model_file)
-    model_file.close()
+#     #모델 만들고 내보내기
+#     model_file=open('model1.pkl','wb')
+#     joblib.dump(model,model_file)
+#     model_file.close()
 
 
-    #plt.bar(X.columns, model_xgb.feature_importances_)
-    fig, ax = plt.subplots()
-    st.header("비만도 중요 인자")
-    plt.bar(np.array(X.columns), model_xgb.feature_importances_)
-    plt.xticks(rotation=90)
-    st.pyplot(fig)
+#     #plt.bar(X.columns, model_xgb.feature_importances_)
+#     fig, ax = plt.subplots()
+#     st.header("비만도 중요 인자")
+#     plt.bar(np.array(X.columns), model_xgb.feature_importances_)
+#     plt.xticks(rotation=90)
+#     st.pyplot(fig)
 
-run_model()
+# run_model()
